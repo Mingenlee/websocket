@@ -19,7 +19,7 @@
   }
   myurl = prot + "//" + window.location.hostname + "/ws";
   console.log("url : " + myurl);
-  var ws = new WebSocket(myurl);
+  const ws = new WebSocket(myurl);
   //var nickname = "";
   ws.onopen = function(e) {
     console.log('Connection to server opened');

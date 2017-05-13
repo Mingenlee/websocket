@@ -1,4 +1,6 @@
-var WebSocket = require('ws');
+const WebSocket = require('ws');
+const url = require('url');
+
 var WebSocketServer = WebSocket.Server, wss = new WebSocketServer({
   port : 8002
 });
@@ -43,6 +45,12 @@ wss.on('connection', function(ws) {
   console.log('client [%s] connected', client_uuid);
   console.log('client ip1 [%s] ', ws.upgradeReq.connection.remoteAddress);
   console.log('client ip2 [%s] ', ws.upgradeReq.headers['x-forwarded-for']);
+  const location = url.parse(ws.upgradeReq.url, true);
+  console.log('access_token [%s], cookie [%s] ',
+    location.access_token, ws.upgradeReq.headers.cookie);
+  // You might use location.query.access_token to authenticate or share sessions
+  // or ws.upgradeReq.headers.cookie (see http://stackoverflow.com/a/16395220/151312)
+
 
   var connect_message = nickname + " has connected";
   
